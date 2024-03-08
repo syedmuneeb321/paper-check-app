@@ -35,42 +35,44 @@ def input_image_setup(upload_file):
 
 select_upload_image = st.selectbox('Select Image:',[None,'In Camera','In Gallery',])
 
+def main(input_prompt,image):
+    st.subheader("Quesion Paper Image:")
+    input_image = Image.open(image)
+    st.image(input_image,width=400)
+    if image:
+       if st.button("Calculate the Marks:"):
+            image_data = input_image_setup(image)
+            respose=get_gemini_response(input_prompt,image_data)
+            st.header("Total Marks with solution")
+            # print(respose)
+            st.markdown(respose)
+
+
+
 
 input_prompt = """
-you are a math teacher.your job is to check the student test then give them marks.check each step of the solution carefully.also keep in mind that what is written with the i blue/black marker  will be question or heading.the steps that are wrong are also cut marks.ith should also be mentioned which step is wrong.finally total marks calculate and then response
+you are a math teacher.your job is to check the student test then give them marks.check each step of the solution carefully.you also have to apply your own logic to each step of the student solution.also keep in mind that what is written with the  blue/black marker  will be question or heading.the steps that are wrong are also cut marks.it should also be mentioned which step is wrong.finally total marks calculate and show as many steps as  a list rather than a paragraph then 
 response format bellow:
-step1: ...
-step2: ...
-step n: ... 
-final marks: [total marks]
+**Question [No]:**\n
+    **Step [No]:=... **\n
+    **Step n [No]=... **\n
+    **total marks:= [marks]**
+**total Marks:  ** \\sum of all marks
+
+
 """
 
 
 if select_upload_image == 'In Gallery':
     image = st.file_uploader('enter a image')
     if image:
-        st.subheader("Quesion Paper Image:")
-        input_image = Image.open(image)
-        st.image(input_image)
-    if image:
-       if st.button("Calculate the Marks:"):
-            image_data = input_image_setup(image)
-            respose=get_gemini_response(input_prompt,image_data)
-            st.header("Total Marks with solution")
-            st.markdown(respose)
+        main(input_prompt=input_prompt,image=image)
+        
     
 elif select_upload_image == 'In Camera':
     picture = st.camera_input('image input')
     if picture:
-        st.subheader("Quesion Paper Image:")
-        input_image = Image.open(picture)
-        st.image(input_image)
-        if picture:
-            if st.button("Calculate the Marks:"):
-                image_data = input_image_setup(picture)
-                respose=get_gemini_response(input_prompt,image_data)
-                st.header("Total Marks with solution")
-                st.markdown(respose)
+        main(input_prompt=input_prompt,image=picture)
 
 else:
     st.markdown('Please select the Image method')
