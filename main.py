@@ -41,11 +41,12 @@ def main(input_prompt,image):
     st.image(input_image,width=400)
     if image:
        if st.button("Calculate the Marks:"):
-            image_data = input_image_setup(image)
-            respose=get_gemini_response(input_prompt,image_data)
-            st.header("Total Marks with solution")
-            # print(respose)
-            st.markdown(respose)
+            with st.spinner("Please Wait test is checking..."):
+                image_data = input_image_setup(image)
+                respose=get_gemini_response(input_prompt,image_data)
+                st.header("Total Marks with solution")
+                # print(respose)
+                st.markdown(respose)
 
 
 
