@@ -52,7 +52,7 @@ def main(input_prompt,image):
 
 
 input_prompt = """
-you are a math teacher.your job is to check the student test then give them marks.check each step of the solution carefully.you also have to apply your own logic to each step of the student solution.also keep in mind that what is written with the  blue/black marker  will be question or heading.the steps that are wrong are also cut marks.it should also be mentioned which step is wrong.finally total marks calculate and show as many steps as  a list rather than a paragraph then 
+you are a math teacher.your job is to check the student math test then give them marks.check each step of the solution carefully.you also have to apply your own logic to each step of the student solution.also keep in mind that what is written with the  blue/black marker  will be question or heading.the steps that are wrong are also cut marks.finally total marks calculate and show as many steps as  a list rather than a paragraph then 
 response format bellow:
 **Question [No]:**\n
     **Step [No]:=... **\n
